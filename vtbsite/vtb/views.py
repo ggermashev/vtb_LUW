@@ -1,11 +1,12 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, HttpResponseRedirect
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
 
 from vtb.models import *
 
@@ -38,6 +39,10 @@ class Registration(CreateView):
         self.success_url = f"/fill_information/{self.user_name}"
         print(self.user_name)
         return HttpResponseRedirect(self.get_success_url())
+
+class LoginUser(LoginView):
+    form_class = AuthenticationForm
+    template_name = 'vtb/login.html'
 
 class FillInformationForm(forms.ModelForm):
     class Meta:
@@ -76,8 +81,7 @@ menu = [
     {"title": "Магазин", 'url': 'goods'},
     {"title": "События", 'url': 'events'},
     {'title': 'Задания', 'url': 'tasks'},
-    {"title": "Кошелек", 'url': 'vallet'},
-    {"title": "Способности", 'url': 'abilities'},
+    #{"title": "Профиль", 'url': 'profile'},
     {'title': 'Регистрация', 'url': 'registration'},
     #{'title': 'Вход', 'url': 'enter'},
 ]
@@ -111,3 +115,8 @@ class Tasks(ListView):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
         return context
+
+
+def profile(request, user_id):
+    user = Users.objects.get(pk=user_id)
+    return render(request, 'vtb/profile.html', {'menu': menu, 'user': user})
