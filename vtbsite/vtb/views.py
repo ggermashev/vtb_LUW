@@ -58,8 +58,6 @@ def fill_information(request, _username):
             #Users.objects.raw(f"UPDATE vtb_users SET user_id={user_id} WHERE firstname={form.cleaned_data['firstname']} AND name={form.cleaned_data['name']} AND lastname={form.cleaned_data['lastname']}")
             conn = sqlite3.connect('db.sqlite3')
             cursor = conn.cursor()
-            cursor.execute(f"SELECT * FROM vtb_users")
-            print(cursor.fetchall())
             cursor.execute(f"UPDATE vtb_users SET user_id='{user_id}' WHERE firstname='{form.cleaned_data['firstname']}' AND name='{form.cleaned_data['name']}' AND lastname='{form.cleaned_data['lastname']}'")
             conn.commit()
             cursor.close()
@@ -71,4 +69,45 @@ def fill_information(request, _username):
 
 
 def main(request):
-    return HttpResponse("done")
+    return render(request, 'vtb/mainpage.html', {'menu': menu})
+
+menu = [
+    {'title': 'Главная', 'url': 'main'},
+    {"title": "Магазин", 'url': 'goods'},
+    {"title": "События", 'url': 'events'},
+    {'title': 'Задания', 'url': 'tasks'},
+    {"title": "Кошелек", 'url': 'vallet'},
+    {"title": "Способности", 'url': 'abilities'},
+    {'title': 'Регистрация', 'url': 'registration'},
+    #{'title': 'Вход', 'url': 'enter'},
+]
+
+class Store(ListView):
+    model = Goods
+    template_name = 'vtb/store.html'
+    context_object_name = 'goods'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['filter'] = Categories.objects.all()
+        return context
+
+class Events(ListView):
+    pass
+
+class Vallet(ListView):
+    pass
+
+class Abilities(ListView):
+    pass
+
+class Tasks(ListView):
+    model = Tasks
+    template_name = 'vtb/tasks.html'
+    context_object_name = 'tasks'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        return context

@@ -1,0 +1,44 @@
+body {
+    margin: 0px;
+    background-image: url("../images/background.png");
+}
+p {
+    font-family: "Arial";
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+ul {
+    list-style: none;
+}
+
+ul.menu {
+    background-color: blue;
+    padding: 0px 0px 20px 0px;
+    margin: 0px;
+    height: 36px;
+    overflow: hidden;
+}
+
+ul.menu li {
+    display: inline-block;
+    margin: 0px 50px 10px 0px;
+    border: 2px;
+    padding: 15px 10px 15px 10px;
+    background-image: linear-gradient(to right, blue, aqua, blue);
+    border-radius: 10px;
+    font-size: 20px;
+    border: 1px solid white;
+}
+
+ul.menu li:hover {
+    background-image: linear-gradient(to right, blue, red, blue);
+}
+
+li.menu a {
+    color: black;
+}

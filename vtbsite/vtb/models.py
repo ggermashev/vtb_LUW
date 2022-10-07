@@ -25,3 +25,19 @@ class Goods(models.Model):
 class Categories(models.Model):
     category = models.CharField(max_length=64)
 
+class Events(models.Model):
+    creator = models.ForeignKey('Users', on_delete=models.PROTECT, null=True)
+    name = models.CharField(max_length=64)
+    description = models.CharField(max_length=256)
+    reward = models.IntegerField()
+
+class Tasks(models.Model):
+    name = models.CharField(max_length=64)
+    description = models.CharField(max_length=256)
+    reward = models.IntegerField()
+    time_created = models.DateTimeField(auto_now_add=True)
+    min_exp = models.IntegerField()
+    filter = models.ForeignKey('TaskFilters', on_delete=models.PROTECT, null=True)
+
+class TaskFilters(models.Model):
+    filter = models.CharField(max_length=64)

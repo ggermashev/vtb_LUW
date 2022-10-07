@@ -1,0 +1,14 @@
+{% extends 'vtb/base.html' %}
+
+{% block content %}
+<h1>Задания</h1>
+<ul>
+    {% for t in tasks %}
+        <li>
+            <h2>{{t.name}}</h2>
+            <p>{{t.description}}</p>
+            <p>{{t.reward}}</p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
