@@ -10,6 +10,7 @@ urlpatterns = [
     path('money/', Vallet.as_view(), name='vallet'),
     path('abilities/', Abilities.as_view(), name='abilities'),
     path('tasks/', Tasks.as_view(), name='tasks'),
-    path('profile/<int:user_id>', profile, name='profile')
+    path('profile/<int:user_id>', profile, name='profile'),
+    path('login/', LoginUser.as_view(), name='login')
 ]
 

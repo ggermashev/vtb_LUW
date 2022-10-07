@@ -41,3 +41,9 @@ class Tasks(models.Model):
 
 class TaskFilters(models.Model):
     filter = models.CharField(max_length=64)
+
+class News(models.Model):
+    author = models.ForeignKey('Users', related_name='User', on_delete=models.PROTECT, null=True)
+    header_news = models.CharField(max_length=64)
+    content = models.CharField(max_length=512)
+    time_created = models.DateTimeField(auto_now_add=True)

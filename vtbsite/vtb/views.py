@@ -83,7 +83,7 @@ menu = [
     {'title': 'Задания', 'url': 'tasks'},
     #{"title": "Профиль", 'url': 'profile'},
     {'title': 'Регистрация', 'url': 'registration'},
-    #{'title': 'Вход', 'url': 'enter'},
+    {'title': 'Вход', 'url': 'login'},
 ]
 
 class Store(ListView):
