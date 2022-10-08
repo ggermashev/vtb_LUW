@@ -36,6 +36,7 @@ class Goods(models.Model):
     description = models.CharField(max_length=255)
     price = models.IntegerField()
     category = models.ForeignKey('Categories', on_delete=models.PROTECT, null=True)
+    photo = models.ImageField(upload_to="photos/%Y/%m/%d/", null=True)
 
     def get_absolute_url(self):
         return reverse('product', kwargs={'product_id': self.id})
@@ -113,3 +114,9 @@ class Guilds(models.Model):
 class GuildUsers(models.Model):
     guild_user_id = models.ForeignKey('Users', on_delete=models.PROTECT, null=True)
     guild_id = models.ForeignKey('Guilds', on_delete=models.PROTECT, null=True)
+
+
+class Inventory(models.Model):
+    user_id = models.ForeignKey('Users', on_delete=models.CASCADE, null=True)
+    good_id = models.ForeignKey('Goods', on_delete=models.CASCADE, null=True)
+    total_cost = models.IntegerField(null=True)

@@ -22,3 +22,13 @@ def get_guild(guild_id):
 def get_guilds(guild_user_id):
     user_guilds = GuildUsers.objects.filter(guild_user_id=guild_user_id)
     return user_guilds
+
+@register.simple_tag()
+def get_user_items(user_id):
+    user_items = Inventory.objects.filter(user_id=user_id)
+    return user_items
+
+@register.simple_tag()
+def get_item(item_id):
+    item = Goods.objects.get(id=item_id)
+    return item

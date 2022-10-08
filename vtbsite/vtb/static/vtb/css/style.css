@@ -57,3 +57,19 @@ color: #ceceff;
 li.profile_menu a {
 color: #ceceff;
 }
+
+.store {
+    position: center;
+}
+
+ul li.store {
+    padding: 10px;
+    border: 2px;
+    margin: 5px;
+}
+
+img {
+    size: 20px;
+    hight: 50px;
+    width: 50px;
+}

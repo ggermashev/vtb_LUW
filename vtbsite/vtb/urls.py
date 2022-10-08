@@ -18,5 +18,9 @@ urlpatterns = [
     path('wallet/<int:user_id>', wallet, name='wallet'),
     path('choose_donation/<int:user_id>', donate_to_users, name='choose_donation'),
     path('donate/<int:from_id>/<int:to_id>', donate, name='donate'),
+    path('inventory/<int:user_id>', inventory, name='inventory'),
+    path('buying_coins/<int:item_id>/<int:user_id>', buying_coins, name='buying_coins'),
+    path('buying_nft/<int:item_id>/<int:user_id>', buying_nft, name='buying_nft'),
+
 ]
 

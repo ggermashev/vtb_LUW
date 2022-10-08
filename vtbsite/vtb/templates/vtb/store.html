@@ -1,0 +1,16 @@
+{% extends 'vtb/base.html' %}\
+
+{% block content %}
+<ul class="store">
+    {% for g in goods %}
+        <li class="store">
+            <h1>{{g.name}}</h1>
+            {% if g.photo %}
+            <p><img src="{{g.photo.url}}"></p>
+            {% endif %}
+            <p>Цена в коинах: {{g.price}} {% if request.user.is_authenticated %} <a href="{% url 'buying_coins' g.id user.id %}">Купить за коины</a> {% endif %} </p>
+            <p>Цена в nft: {{g.price_nft}} {% if request.user.is_authenticated %} <a href="{% url 'buying_nft' g.id user.id %}">Купить за nft</a> {% endif %} </p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

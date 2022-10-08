@@ -160,12 +160,13 @@ def guild(request, guild_id):
 
 def profile(request, user_id):
     myuser = Users.objects.get(user_id=user_id)
-    r = requests.get(f"https://hackathon.lsp.team/hk/v1/wallets/{myuser.publicKey}/balance").json()
-    maticAmount = r['maticAmount']
-    coinsAmount = r['coinsAmount']
-    r = requests.get(f"https://hackathon.lsp.team/hk/v1/wallets/{myuser.publicKey}/nft/balance").json()
 
-    return render(request, 'vtb/profile.html', {'menu': menu, 'myuser': myuser, 'maticAmount': maticAmount, 'coinsAmount': coinsAmount})
+    # r = requests.get(f"https://hackathon.lsp.team/hk/v1/wallets/{myuser.publicKey}/balance").json()
+    # maticAmount = r['maticAmount']
+    # coinsAmount = r['coinsAmount']
+    # r = requests.get(f"https://hackathon.lsp.team/hk/v1/wallets/{myuser.publicKey}/nft/balance").json()
+
+    return render(request, 'vtb/profile.html', {'menu': menu, 'myuser': myuser})
 
 def wallet(request, user_id):
     myuser = Users.objects.get(id=user_id)
@@ -202,3 +203,34 @@ def donate_to_users(request, user_id):
     users = Users.objects.filter(~Q(id=user_id))
 
     return render(request, 'vtb/donate_to_users.html', {'menu': menu, 'users': users, 'from_id': user_id})
+
+def inventory(request, user_id):
+    myuser = Users.objects.get(id=user_id)
+    return render(request, 'vtb/inventory.html', {'menu': menu, 'myuser': myuser, 'user_id': user_id})
+
+
+def buying(request, item_id, user_id):
+
+    myuser = Users.objects.get(user_id=user_id)
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    cursor.execute(f"INSERT INTO vtb_inventory (user_id_id, good_id_id) VALUES ('{myuser.id}', '{item_id}')")
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
+def buying_coins(request, item_id, user_id):
+    buying(request, item_id, user_id)
+    myuser = Users.objects.get(user_id=user_id)
+    adm = User.objects.get(is_superuser=1)
+    admin = Users.objects.get(user_id=adm.id)
+    item = Goods.objects.get(id=item_id)
+    headers = {'Content-type': 'application/json'}
+    r = requests.post("https://hackathon.lsp.team/hk/v1/transfers/ruble", json={'fromPrivateKey': myuser.privateKey, 'toPublicKey': admin.publicKey, 'amount': item.price}, headers=headers).json()
+    print(r)
+    return redirect('goods')
+
+def buying_nft(request, item_id, user_id):
+    buying(request, item_id, user_id)
+    return redirect('goods')

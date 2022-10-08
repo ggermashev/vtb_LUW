@@ -1,0 +1,12 @@
+{% extends 'vtb/base.html' %}
+{% load vtb_tags %}
+
+{% block content %}
+    <ul>
+        {% get_user_items user_id as user_items %}
+        {%for u_i in user_items %}
+            {% get_item u_i.good_id.id as item %}
+            <li>{{item.name}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

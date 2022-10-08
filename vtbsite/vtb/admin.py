@@ -6,9 +6,16 @@ admin.site.register(Users)
 
 admin.site.register(Roles)
 
-admin.site.register(Goods)
+class GoodsAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'price', 'category', 'photo')
 
-admin.site.register(Categories)
+
+admin.site.register(Goods, GoodsAdmin)
+
+class CategoriesAdmin(admin.ModelAdmin):
+    list_display = ('category',)
+
+admin.site.register(Categories, CategoriesAdmin)
 
 admin.site.register(Events)
 
