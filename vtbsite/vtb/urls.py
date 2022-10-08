@@ -14,6 +14,9 @@ urlpatterns = [
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),
     path('guild/<int:guild_id>', guild, name='guild'),
-    path('guilds/', GuildsView.as_view(), name='guilds')
+    path('guilds/', GuildsView.as_view(), name='guilds'),
+    path('wallet/<int:user_id>', wallet, name='wallet'),
+    path('choose_donation/<int:user_id>', donate_to_users, name='choose_donation'),
+    path('donate/<int:from_id>/<int:to_id>', donate, name='donate'),
 ]
 

@@ -1,0 +1,10 @@
+{% extends 'vtb/base.html' %}
+
+{% block content %}
+<h1>Form</h1>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Перевести</button>
+</form>
+{% endblock %}

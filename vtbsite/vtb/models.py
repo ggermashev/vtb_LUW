@@ -9,6 +9,8 @@ class Users(models.Model):
     name = models.CharField(max_length=64)
     lastname = models.CharField(max_length=64)
     role = models.ForeignKey('Roles', on_delete=models.PROTECT, null=True)
+    privateKey = models.CharField(max_length=128, null=True)
+    publicKey = models.CharField(max_length=128, null=True)
 
 
     def get_absolute_url(self):

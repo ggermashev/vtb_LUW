@@ -3,6 +3,9 @@
 
 {% block content %}
 <h1>{{myuser.firstname}} {{myuser.name}} {{myuser.lastname}}</h1>
+<h2>Баланс:</h2>
+<h3>matic: {{maticAmount}}</h3>
+<h3>coins: {{coinsAmount}}</h3>
 <div vlass="left_panel">
     <ul class="user_menu">
         <h2>Гильдии</h2>
@@ -16,7 +19,7 @@
         </ul>
         </li>
         <li>
-            <h2><a href="#">Кошелек</a></h2>
+            <h2><a href="{% url 'wallet' myuser.id %}">Кошелек</a></h2>
         </li>
     </ul>
 </div>

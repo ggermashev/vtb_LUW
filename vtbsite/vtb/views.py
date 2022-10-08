@@ -3,15 +3,18 @@ from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView
 
+from vtb.forms import *
 from vtb.models import *
 
 import sqlite3
+import requests
 
 class RegisterUserForm(UserCreationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
@@ -80,10 +83,15 @@ def fill_information(request, _username):
         if form.is_valid():
             form.save()
             user_id = User.objects.get(username=_username).id
-            #Users.objects.raw(f"UPDATE vtb_users SET user_id={user_id} WHERE firstname={form.cleaned_data['firstname']} AND name={form.cleaned_data['name']} AND lastname={form.cleaned_data['lastname']}")
+            r = requests.post("https://hackathon.lsp.team/hk/v1/wallets/new", data={}).json()
+            print(r)
             conn = sqlite3.connect('db.sqlite3')
             cursor = conn.cursor()
+            pubkey = r['publicKey']
+            privkey = r['privateKey']
             cursor.execute(f"UPDATE vtb_users SET user_id='{user_id}' WHERE firstname='{form.cleaned_data['firstname']}' AND name='{form.cleaned_data['name']}' AND lastname='{form.cleaned_data['lastname']}'")
+            cursor.execute(f"UPDATE vtb_users SET publicKey='{pubkey}' WHERE firstname='{form.cleaned_data['firstname']}' AND name='{form.cleaned_data['name']}' AND lastname='{form.cleaned_data['lastname']}'")
+            cursor.execute(f"UPDATE vtb_users SET privateKey='{privkey}' WHERE firstname='{form.cleaned_data['firstname']}' AND name='{form.cleaned_data['name']}' AND lastname='{form.cleaned_data['lastname']}'")
             conn.commit()
             cursor.close()
             conn.close()
@@ -152,4 +160,45 @@ def guild(request, guild_id):
 
 def profile(request, user_id):
     myuser = Users.objects.get(user_id=user_id)
-    return render(request, 'vtb/profile.html', {'menu': menu, 'myuser': myuser})
+    r = requests.get(f"https://hackathon.lsp.team/hk/v1/wallets/{myuser.publicKey}/balance").json()
+    maticAmount = r['maticAmount']
+    coinsAmount = r['coinsAmount']
+    r = requests.get(f"https://hackathon.lsp.team/hk/v1/wallets/{myuser.publicKey}/nft/balance").json()
+
+    return render(request, 'vtb/profile.html', {'menu': menu, 'myuser': myuser, 'maticAmount': maticAmount, 'coinsAmount': coinsAmount})
+
+def wallet(request, user_id):
+    myuser = Users.objects.get(id=user_id)
+    r = requests.get(f"https://hackathon.lsp.team/hk/v1/wallets/{myuser.publicKey}/balance").json()
+    maticAmount = r['maticAmount']
+    coinsAmount = r['coinsAmount']
+    r = requests.get(f"https://hackathon.lsp.team/hk/v1/wallets/{myuser.publicKey}/nft/balance").json()
+
+    return render(request, 'vtb/wallet.html', {'menu': menu, 'myuser': myuser, 'maticAmount': maticAmount, 'coinsAmount': coinsAmount})
+
+def donate(request, from_id, to_id):
+    user_from = Users.objects.get(id=from_id)
+    user_to = Users.objects.get(id=to_id)
+    fromPrivateKey = user_from.privateKey
+    toPublicKey = user_to.publicKey
+    if request.method == 'POST':
+        form = AddDonateForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            headers = {'Content-type': 'application/json'}
+            if form.cleaned_data['valuta'] == ['coins']:
+                amount = form.cleaned_data['value']
+                r = requests.post(f"https://hackathon.lsp.team/hk/v1/transfers/ruble", json={'fromPrivateKey': fromPrivateKey, 'toPublicKey': toPublicKey, 'amount': amount}, headers=headers).json()
+                print(r)
+            elif form.cleaned_data['valuta'] == ['matic']:
+                amount = form.cleaned_data['value']
+                r = requests.post(f"https://hackathon.lsp.team/hk/v1/transfers/matic", json={'fromPrivateKey': fromPrivateKey, 'toPublicKey': toPublicKey, "amount": amount}, headers=headers).json()
+                print(r)
+    else:
+        form = AddDonateForm()
+    return render(request, 'vtb/donate.html', {'menu': menu, 'form': form})
+
+def donate_to_users(request, user_id):
+    users = Users.objects.filter(~Q(id=user_id))
+
+    return render(request, 'vtb/donate_to_users.html', {'menu': menu, 'users': users, 'from_id': user_id})
