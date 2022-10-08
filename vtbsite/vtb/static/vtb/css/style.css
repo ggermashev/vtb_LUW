@@ -1,16 +1,27 @@
+* {
+    font-family: Calibri;
+}
+
 body {
 margin: 0px;
-background-image: url("../images/background.png");
+background: no-repeat;
+background-color: #262626;
+
 }
 p {
 font-family: "Times New Roman";
 font-size: 20px;
+color: white;
+}
+
+h1,h2,h3 {
+    color: #f2f2f2;
 }
 
 a {
 font-family: "Times New Roman";
 text-decoration: none;
-color: black;
+color: white;
 }
 
 ul {
@@ -18,7 +29,7 @@ list-style: none;
 }
 
 ul.menu {
-background-image: url("../images/navigationpanel.png");
+background-color: #1144AA;
 background-position-y: -80px;
 padding: 0px 0px 20px 0px;
 margin: 0px;
@@ -29,24 +40,24 @@ overflow: hidden;
 li.menu {
 display: inline-block;
 margin: 0px 0px 0px 0px;
-padding: 15px 6% 15px 6%;
-background-image: linear-gradient(to bottom, #6600ff, 95%, white);
+padding: 15px 2% 15px 2%;
+background-color: #2255BB;
 font-size: 20px;
-border: 1px solid gray;
+border: 1px solid #262626;
 transition: 0.3s;
 }
 
 li.profile_menu {
 float: right;
-margin: 10px 5px 0px 0px;
-padding: 7px 15px 7px 15px;
-background-image: linear-gradient(to bottom, #6600ff, 95%, white);
-font-size: 10px;
-border: 1px solid gray;
+margin: 0px 0px 0px 0px;
+padding: 15px 2% 15px 2%;
+background-color: #2255BB;
+font-size: 20px;
+border: 1px solid #262626;
 }
 
 ul.menu li:hover {
-background-image: linear-gradient(to top, white, 70%, #6600ff);
+background-image: linear-gradient(to top, rgba(26,26,26, 0.5), 50%, #003399);
 font-color: #564dff;
 }
 
@@ -62,14 +73,107 @@ color: #ceceff;
     position: center;
 }
 
+ul.store {
+    position: relative;
+    width: 100%;
+    height: 20%;
+    float: left
+}
+
 ul li.store {
     padding: 10px;
-    border: 2px;
-    margin: 5px;
+    border-bottom: 1px solid white;
+    margin: 10px;
+    overflow: hidden;
+    width: 500px;
+    height: 250px;
 }
 
 img {
+    float: left;
     size: 20px;
-    hight: 50px;
-    width: 50px;
+    hight: 150px;
+    width: 150px;
 }
+
+p.price {
+    clear: both;
+    margin: 0px;
+}
+
+p.description {
+    floar: right;
+    margin-top: 0px;
+}
+
+div.left_panel {
+    float: left;
+    width: 300px;
+    height: 100%;
+    min-height: 100%;
+    position: absolute;
+    background-color: grey;
+}
+
+h1.fio{
+    position:center;
+    text-decoration: underline;
+}
+
+div.wallet {
+    padding-left: 350px;
+}
+
+a.profile:hover {
+    color: #1144AA;
+}
+
+a.donate:hover {
+    color: greenyellow;
+}
+
+div.donate {
+    border: 1px solid green;
+    width: 120px;
+    height: 37px;
+    position: relative;
+    margin: 0px;
+}
+
+h2.donate {
+    position: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+ul.inventory {
+    margin-left: 350px;
+}
+
+li.inventory {
+    padding: 10px;
+    border-bottom: 1px solid white;
+    margin: 10px;
+    overflow: hidden;
+    width: 500px;
+    height: 250px;
+}
+
+div.join_guild {
+    float: right;
+    width: 80px;
+    height: 25px;
+    border: 1px solid green;
+}
+
+p.join_guild {
+    margin: 0px;
+    padding: 0px;
+}
+
+a.join_guild:hover {
+    color: green;
+}
+
+
+

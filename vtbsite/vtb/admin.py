@@ -19,8 +19,17 @@ admin.site.register(Categories, CategoriesAdmin)
 
 admin.site.register(Events)
 
-admin.site.register(Tasks)
+class TasksAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'reward', )
+
+admin.site.register(Tasks, TasksAdmin)
 
 admin.site.register(TaskFilters)
 
 admin.site.register(News)
+
+class GuildsAdmin(admin.ModelAdmin):
+    list_display = ('guildName', 'guildPoints', 'guildRanking', 'photo')
+
+admin.site.register(Guilds, GuildsAdmin)
+

@@ -11,21 +11,23 @@
 <div class="article">
 <ul class="menu">
 {% for m in menu %}
-<li class="menu" onmouseenter="ChangeFont('menu--{{ m.url }}', '#564dff')" onmouseleave="ChangeFont('menu--{{ m.url }}','#ceceff')">
+<li class="menu" onmouseenter="ChangeFont('menu--{{ m.url }}', '#e7e7ff')" onmouseleave="ChangeFont('menu--{{ m.url }}','#ceceff')">
 <a class="menu menu--{{m.url}}" href="{% url m.url %}"> {{m.title}} </a>
 </li>
 {% endfor %}
 {% if not request.user.is_authenticated%}
-<li class="profile_menu" onmouseenter="ChangeFont('profile_menu--registration', '#564dff')" onmouseleave="ChangeFont('profile_menu--registration','#ceceff')"><a class="profile_menu profile_menu--registration" href="{% url 'registration' %}">Регистрация</a></li>
-<li class="profile_menu" onmouseenter="ChangeFont('profile_menu--login', '#564dff')" onmouseleave="ChangeFont('profile_menu--login','#ceceff')"><a class="profile_menu profile_menu--login" href="{% url 'login' %}">Войти</a></li>
+<li class="profile_menu" onmouseenter="ChangeFont('profile_menu--registration', '#e7e7ff')" onmouseleave="ChangeFont('profile_menu--registration','#ceceff')"><a class="profile_menu profile_menu--registration" href="{% url 'registration' %}">Регистрация</a></li>
+<li class="profile_menu" onmouseenter="ChangeFont('profile_menu--login', '#e7e7ff')" onmouseleave="ChangeFont('profile_menu--login','#ceceff')"><a class="profile_menu profile_menu--login" href="{% url 'login' %}">Войти</a></li>
 {% endif %}
 {% if request.user.is_authenticated %}
-<li class="profile_menu" onmouseenter="ChangeFont('profile_menu--profile', '#564dff')" onmouseleave="ChangeFont('profile_menu--profile','#ceceff')"><a class="profile_menu profile_menu--profile" href="{% url 'profile' user.id %}">Профиль</a></li>
-<li class="profile_menu" onmouseenter="ChangeFont('profile_menu--logout', '#564dff')" onmouseleave="ChangeFont('profile_menu--logout','#ceceff')"><a class="profile_menu profile_menu--logout" href="{% url 'logout' %}">Выйти</a></li>
+<li class="profile_menu" onmouseenter="ChangeFont('profile_menu--profile', '#e7e7ff')" onmouseleave="ChangeFont('profile_menu--profile','#ceceff')"><a class="profile_menu profile_menu--profile" href="{% url 'profile' user.id %}">Профиль</a></li>
+<li class="profile_menu" onmouseenter="ChangeFont('profile_menu--logout', '#e7e7ff')" onmouseleave="ChangeFont('profile_menu--logout','#ceceff')"><a class="profile_menu profile_menu--logout" href="{% url 'logout' %}">Выйти</a></li>
 {% endif %}
 </ul>
 <script type="text/javascript" src="{% static 'vtb/js/script.js' %}"></script>
 </div>
+{% endblock %}
+{% block profile %}
 {% endblock %}
 </div>
 {% block content %}

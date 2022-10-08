@@ -2,12 +2,13 @@
 
 {% block content %}
 <h1>Задания</h1>
-<ul>
+<ul class="store">
     {% for t in tasks %}
-        <li>
+        <li class="store">
             <h2>{{t.name}}</h2>
-            <p>{{t.description}}</p>
-            <p>{{t.reward}}</p>
+            <p><img src="{{t.photo.url}}"></p>
+            <p class="description">{{t.description}}</p>
+            <p class="price">Награда: {{t.reward}}</p>
         </li>
     {% endfor %}
 </ul>

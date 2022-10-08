@@ -1,8 +1,12 @@
-{% extends 'vtb/base.html' %}
+{% extends 'vtb/profile.html' %}
 
 {% block content %}
-<h1>Баланс пользователя {{myuser.firstname}} {{myuser.name}} {{myuser.lastname}}</h1>
+<div class="wallet">
+<h1>Баланс</h1>
 <h2>matic: {{maticAmount}}</h2>
 <h2>coins: {{coinsAmount}}</h2>
-<h2><a href="{% url 'choose_donation' myuser.id %}">Перевести</a></h2>
+<div class="donate">
+<h2 class="donate"><a class="donate" href="{% url 'choose_donation' myuser.id %}">Перевести</a></h2>
+</div>
+</div>
 {% endblock %}

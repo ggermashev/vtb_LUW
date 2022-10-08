@@ -67,12 +67,10 @@ class Events(models.Model):
 
 
 class Tasks(models.Model):
-    name = models.CharField(max_length=64)
-    description = models.CharField(max_length=256)
-    reward = models.IntegerField()
-    time_created = models.DateTimeField(auto_now_add=True)
-    min_exp = models.IntegerField()
-    filter = models.ForeignKey('TaskFilters', on_delete=models.PROTECT, null=True)
+    name = models.CharField(max_length=64, null=True)
+    description = models.CharField(max_length=256, null=True)
+    reward = models.IntegerField(null=True)
+    photo = models.ImageField(upload_to="photos/%Y/%m/%d/", null=True)
 
     def get_absolute_url(self):
         return reverse('task', kwargs={'task_id': self.id})
@@ -105,11 +103,17 @@ class News(models.Model):
 
 class Guilds(models.Model):
     guildName = models.CharField(max_length=16)
+    description =models.CharField(max_length=128, null=True)
     guildPoints = models.IntegerField()
     guildRanking = models.CharField(max_length=4)
+    photo = models.ImageField(upload_to="photos/%Y/%m/%d/", null=True)
 
     def get_absolute_url(self):
         return reverse('guild', kwargs={'guild_id': self.id})
+
+    class Meta:
+        verbose_name = 'Гальдии'
+        verbose_name_plural = 'Гильдии'
 
 class GuildUsers(models.Model):
     guild_user_id = models.ForeignKey('Users', on_delete=models.PROTECT, null=True)

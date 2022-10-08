@@ -107,7 +107,6 @@ def main(request):
 menu = [
     {'title': 'Главная', 'url': 'main'},
     {"title": "Магазин", 'url': 'goods'},
-    {"title": "События", 'url': 'events'},
     {'title': 'Задания', 'url': 'tasks'},
     {'title': 'Гильдии', 'url': 'guilds'},
 ]
@@ -157,6 +156,11 @@ class GuildsView(ListView):
 def guild(request, guild_id):
     myguild = Guilds.objects.get(id=guild_id)
     return render(request, 'vtb/guild.html', {'menu': menu, 'myguild': myguild})
+
+def user_guilds(request, user_id):
+    myuser = Users.objects.get(id=user_id)
+
+    return render(request, 'vtb/user_guilds.html', {'menu': menu, 'myuser': myuser})
 
 def profile(request, user_id):
     myuser = Users.objects.get(user_id=user_id)

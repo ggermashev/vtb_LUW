@@ -1,24 +1,25 @@
 {% extends 'vtb/base.html' %}
 {% load vtb_tags %}
 
-{% block content %}
-<h1>{{myuser.firstname}} {{myuser.name}} {{myuser.lastname}}</h1>
-<div vlass="left_panel">
-    <ul class="user_menu">
-        <h2>Гильдии</h2>
+{% block profile %}
+<h1 class="fio">{{myuser.firstname}} {{myuser.name}} {{myuser.lastname}}</h1>
+<div class="left_panel">
+    <ul class="left_menu">
+        <li><h2><a class="profile" href="{% url 'user_guilds' myuser.id %}">Гильдии</a></h2></li>
+<!--        <li>-->
+<!--        <ul class="store">-->
+<!--            {% get_guilds myuser.id as guilds %}-->
+<!--            {% for g in guilds %}-->
+<!--                {% get_guild g.id as g %}-->
+<!--                <li class="store"><a href="{{ g.get_absolute_url }}">{{g.guildName}}</a></li>-->
+<!--            {% endfor %}-->
+<!--        </ul>-->
+<!--        </li>-->
         <li>
-        <ul class="guilds">
-            {% get_guilds myuser.id as guilds %}
-            {% for g in guilds %}
-                {% get_guild g.id as g %}
-                <li><a href="{{ g.get_absolute_url }}">{{g.guildName}}</a></li>
-            {% endfor %}
-        </ul>
+            <h2><a class="profile" href="{% url 'wallet' myuser.id %}">Кошелек</a></h2>
         </li>
-        <li>
-            <h2><a href="{% url 'wallet' myuser.id %}">Кошелек</a></h2>
-        </li>
-        <li><h2><a href="{% url 'inventory' myuser.id %}">Инвентарь</a></h2></li>
+        <li><h2><a class="profile" href="{% url 'inventory' myuser.id %}">Инвентарь</a></h2></li>
+        <li><h2><a class="profile" href="#">Создать задание</a></h2></li>
     </ul>
 </div>
 {% endblock %}

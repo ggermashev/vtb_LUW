@@ -1,12 +1,18 @@
-{% extends 'vtb/base.html' %}
+{% extends 'vtb/profile.html' %}
 {% load vtb_tags %}
 
+
 {% block content %}
-    <ul>
+    <ul class="inventory">
+        <h1 class="inventory">Инвентарь</h1>
         {% get_user_items user_id as user_items %}
         {%for u_i in user_items %}
             {% get_item u_i.good_id.id as item %}
-            <li>{{item.name}}</li>
+            <li class="inventory">
+                <h1 class="inventory">{{item.name}}</h1>
+                <p><img src="{{item.photo.url}}"></p>
+                <div class="inventory"><p class="inventory">{{item.description}}</p></div>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -21,6 +21,6 @@ urlpatterns = [
     path('inventory/<int:user_id>', inventory, name='inventory'),
     path('buying_coins/<int:item_id>/<int:user_id>', buying_coins, name='buying_coins'),
     path('buying_nft/<int:item_id>/<int:user_id>', buying_nft, name='buying_nft'),
-
+    path('user_guilds/<int:user_id>', user_guilds, name='user_guilds'),
 ]
 

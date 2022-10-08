@@ -1,0 +1,10 @@
+{% extends 'vtb/profile.html' %}
+{% load vtb_tags %}
+
+{% block content %}
+    {% get_user_guilds myuser.id as user_guilds %}
+    {% for u_g in user_guilds %}
+        {% get_guild u_g.guild_id as g %}
+        <li class="store"><a href="{{ g.get_absolute_url }}">{{g.guildName}}</a></li>
+    {% endfor %}
+{% endblock %}
