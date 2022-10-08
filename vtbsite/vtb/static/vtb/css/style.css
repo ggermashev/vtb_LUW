@@ -1,44 +1,59 @@
 body {
-    margin: 0px;
-    background-image: url("../images/background.png");
+margin: 0px;
+background-image: url("../images/background.png");
 }
 p {
-    font-family: "Arial";
-    font-size: 20px;
+font-family: "Times New Roman";
+font-size: 20px;
 }
 
 a {
-    text-decoration: none;
-    color: black;
+font-family: "Times New Roman";
+text-decoration: none;
+color: black;
 }
 
 ul {
-    list-style: none;
+list-style: none;
 }
 
 ul.menu {
-    background-color: blue;
-    padding: 0px 0px 20px 0px;
-    margin: 0px;
-    height: 36px;
-    overflow: hidden;
+background-image: url("../images/navigationpanel.png");
+background-position-y: -80px;
+padding: 0px 0px 20px 0px;
+margin: 0px;
+height: 36px;
+overflow: hidden;
 }
 
-ul.menu li {
-    display: inline-block;
-    margin: 0px 50px 10px 0px;
-    border: 2px;
-    padding: 15px 10px 15px 10px;
-    background-image: linear-gradient(to right, blue, aqua, blue);
-    border-radius: 10px;
-    font-size: 20px;
-    border: 1px solid white;
+li.menu {
+display: inline-block;
+margin: 0px 0px 0px 0px;
+padding: 15px 6% 15px 6%;
+background-image: linear-gradient(to bottom, #6600ff, 95%, white);
+font-size: 20px;
+border: 1px solid gray;
+transition: 0.3s;
+}
+
+li.profile_menu {
+float: right;
+margin: 10px 5px 0px 0px;
+padding: 7px 15px 7px 15px;
+background-image: linear-gradient(to bottom, #6600ff, 95%, white);
+font-size: 10px;
+border: 1px solid gray;
 }
 
 ul.menu li:hover {
-    background-image: linear-gradient(to right, blue, red, blue);
+background-image: linear-gradient(to top, white, 70%, #6600ff);
+font-color: #564dff;
 }
 
 li.menu a {
-    color: black;
+color: #ceceff;
+}
+
+li.profile_menu a {
+color: #ceceff;
 }
