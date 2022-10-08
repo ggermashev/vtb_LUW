@@ -12,9 +12,17 @@
         <ul class="menu">
             {% for m in menu %}
             <li class="menu">
-                <a href="{% url m.url %}"> {{m.title}} </a>
+                <a class="menu menu--{{m.url}}" href="{% url m.url %}"> {{m.title}} </a>
             </li>
             {% endfor %}
+            {% if not request.user.is_authenticated%}
+            <li class="menu"><a href="{% url 'registration' %}">Регистрация</a></li>
+            <li class="menu"><a href="{% url 'login' %}">Войти</a></li>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+                <li class="menu"><a href="{% url 'profile' user.id %}">Профиль</a></li>
+                <li class="menu"><a href="{% url 'logout' %}">Выйти</a></li>
+            {% endif %}
         </ul>
     </div>
 {% endblock %}

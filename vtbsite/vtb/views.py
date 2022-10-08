@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
@@ -40,9 +41,17 @@ class Registration(CreateView):
         print(self.user_name)
         return HttpResponseRedirect(self.get_success_url())
 
+
 class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = 'vtb/login.html'
+
+    def get_success_url(self):
+        return reverse_lazy('main')
+
+def logout_user(request):
+    logout(request)
+    return redirect('main')
 
 class FillInformationForm(forms.ModelForm):
     class Meta:
@@ -67,7 +76,7 @@ def fill_information(request, _username):
             conn.commit()
             cursor.close()
             conn.close()
-            return redirect('main')
+            return redirect('login')
     else:
         form = FillInformationForm()
     return render(request, 'vtb/fill_information.html', {'form': form})
@@ -82,8 +91,8 @@ menu = [
     {"title": "События", 'url': 'events'},
     {'title': 'Задания', 'url': 'tasks'},
     #{"title": "Профиль", 'url': 'profile'},
-    {'title': 'Регистрация', 'url': 'registration'},
-    {'title': 'Вход', 'url': 'login'},
+    #{'title': 'Регистрация', 'url': 'registration'},
+    #{'title': 'Вход', 'url': 'login'},
 ]
 
 class Store(ListView):
@@ -118,5 +127,5 @@ class Tasks(ListView):
 
 
 def profile(request, user_id):
-    user = Users.objects.get(pk=user_id)
-    return render(request, 'vtb/profile.html', {'menu': menu, 'user': user})
+    myuser = Users.objects.get(user_id=user_id)
+    return render(request, 'vtb/profile.html', {'menu': menu, 'myuser': myuser})
