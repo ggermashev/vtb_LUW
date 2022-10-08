@@ -41,10 +41,21 @@ class Registration(CreateView):
         print(self.user_name)
         return HttpResponseRedirect(self.get_success_url())
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        return context
+
+
 
 class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = 'vtb/login.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        return context
 
     def get_success_url(self):
         return reverse_lazy('main')
@@ -90,9 +101,7 @@ menu = [
     {"title": "Магазин", 'url': 'goods'},
     {"title": "События", 'url': 'events'},
     {'title': 'Задания', 'url': 'tasks'},
-    #{"title": "Профиль", 'url': 'profile'},
-    #{'title': 'Регистрация', 'url': 'registration'},
-    #{'title': 'Вход', 'url': 'login'},
+    {'title': 'Гильдии', 'url': 'guilds'},
 ]
 
 class Store(ListView):
@@ -120,11 +129,16 @@ class Tasks(ListView):
     template_name = 'vtb/tasks.html'
     context_object_name = 'tasks'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        return context
 
-class Guild(ListView):
-    model = Guild
-    template_name = 'vtb/guild.html'
-    context_object_name = 'guild'
+
+class GuildsView(ListView):
+    model = Guilds
+    template_name = 'vtb/guilds.html'
+    context_object_name = 'guilds'
 
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -132,6 +146,9 @@ class Guild(ListView):
         context['menu'] = menu
         return context
 
+def guild(request, guild_id):
+    myguild = Guilds.objects.get(id=guild_id)
+    return render(request, 'vtb/guild.html', {'menu': menu, 'myguild': myguild})
 
 def profile(request, user_id):
     myuser = Users.objects.get(user_id=user_id)

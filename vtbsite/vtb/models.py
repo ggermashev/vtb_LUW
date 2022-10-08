@@ -10,6 +10,7 @@ class Users(models.Model):
     lastname = models.CharField(max_length=64)
     role = models.ForeignKey('Roles', on_delete=models.PROTECT, null=True)
 
+
     def get_absolute_url(self):
         return reverse('profile', kwargs={'user_id': self.user.id})
 
@@ -99,10 +100,14 @@ class News(models.Model):
         verbose_name_plural = 'Новости'
         ordering = ['time_created']
 
-class Guild(models.Model):
-    guildMaster = models.ForeignKey('Users', related_name='UserGuildMaster', on_delete=models.PROTECT, null=True)
+class Guilds(models.Model):
     guildName = models.CharField(max_length=16)
-    guildMember = models.ForeignKey('Users', related_name='UserGuildMember', on_delete=models.PROTECT, null=True)
     guildPoints = models.IntegerField()
     guildRanking = models.CharField(max_length=4)
 
+    def get_absolute_url(self):
+        return reverse('guild', kwargs={'guild_id': self.id})
+
+class GuildUsers(models.Model):
+    guild_user_id = models.ForeignKey('Users', on_delete=models.PROTECT, null=True)
+    guild_id = models.ForeignKey('Guilds', on_delete=models.PROTECT, null=True)

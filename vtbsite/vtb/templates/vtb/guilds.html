@@ -1,0 +1,14 @@
+{% extends 'vtb/base.html' %}
+
+{% block content %}
+<h1>Гильдии</h1>
+    <ul>
+    {% for g in guilds %}
+        <li>
+            <h2><a href="{{g.get_absolute_url}}">{{g.guildName}}</a></h2>
+            <p>Очков -- {{g.guildPoints}}</p>
+
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

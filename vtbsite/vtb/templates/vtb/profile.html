@@ -1,5 +1,20 @@
 {% extends 'vtb/base.html' %}
+{% load vtb_tags %}
 
 {% block content %}
-<h1>{{myuser.firstname}}</h1>
+<h1>{{myuser.firstname}} {{myuser.name}} {{myuser.lastname}}</h1>
+<div vlass="left_panel">
+    <ul class="user_menu">
+        <h2>Гильдии</h2>
+        <li>
+        <ul class="guilds">
+            {% get_guilds myuser.id as guilds %}
+            {% for g in guilds %}
+                {% get_guild g.id as g %}
+                <li><a href="{{ g.get_absolute_url }}">{{g.guildName}}</a></li>
+            {% endfor %}
+        </ul>
+        </li>
+    </ul>
+</div>
 {% endblock %}

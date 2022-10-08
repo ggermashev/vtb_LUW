@@ -13,6 +13,7 @@ urlpatterns = [
     path('profile/<int:user_id>', profile, name='profile'),
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),
-    path('guild/', Guild.as_view(), name='guild')
+    path('guild/<int:guild_id>', guild, name='guild'),
+    path('guilds/', GuildsView.as_view(), name='guilds')
 ]
 
