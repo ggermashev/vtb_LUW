@@ -9,7 +9,9 @@
             <p><img src="{{g.photo.url}}"></p>
             <p class="description">Описание: {{g.description}}</p>
             <p class="price">Очков -- {{g.guildPoints}}</p>
-            <div class="join_guild"><p class="join_guild"><a class="join_guild" href="#">Вступить</a></p></div>
+            {% if request.user.is_authenticated %}
+            <div class="join_guild"><p class="join_guild"><a class="join_guild" href="{% url 'join_guild' g.id user.id %}">Вступить</a></p></div>
+            {% endif %}
         </li>
     {% endfor %}
     </ul>

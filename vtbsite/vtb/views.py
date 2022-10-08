@@ -157,6 +157,12 @@ def guild(request, guild_id):
     myguild = Guilds.objects.get(id=guild_id)
     return render(request, 'vtb/guild.html', {'menu': menu, 'myguild': myguild})
 
+def join_guild(request, guild_id, user_id):
+    myuser = Users.objects.get(user_id=user_id)
+    conn = sqlite3.connect('dv.sqlite3')
+    cur = conn.cursor()
+    cur
+
 def user_guilds(request, user_id):
     myuser = Users.objects.get(id=user_id)
 
