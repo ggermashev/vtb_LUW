@@ -111,6 +111,13 @@ class Tasks(ListView):
     template_name = 'vtb/tasks.html'
     context_object_name = 'tasks'
 
+
+class Guild(ListView):
+    model = Guild
+    template_name = 'vtb/guild.html'
+    context_object_name = 'guild'
+
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu

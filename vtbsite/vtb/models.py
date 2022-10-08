@@ -47,3 +47,10 @@ class News(models.Model):
     header_news = models.CharField(max_length=64)
     content = models.CharField(max_length=512)
     time_created = models.DateTimeField(auto_now_add=True)
+
+class Guild(models.Model):
+    guildMaster = models.ForeignKey('Users', related_name='UserGuildMaster', on_delete=models.PROTECT, null=True)
+    guildName = models.CharField(max_length=16)
+    guildMember = models.ForeignKey('Users', related_name='UserGuildMember', on_delete=models.PROTECT, null=True)
+    guildPoints = models.IntegerField()
+    guildRanking = models.CharField(max_length=4)
