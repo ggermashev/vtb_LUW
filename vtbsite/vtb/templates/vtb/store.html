@@ -9,8 +9,10 @@
             <p><img src="{{g.photo.url}}"></p>
             {% endif %}
             <p class="description"> Описание : {{g.description}}</p>
+            <div class="price">
             <p class="price">Цена в коинах: {{g.price}}  {% if request.user.is_authenticated %}  <a href="{% url 'buying_coins' g.id user.id %}">Купить за коины</a>  {% endif %}  </p>
-            <p class="price">Цена в nft: {{g.price_nft}} {% if request.user.is_authenticated %} <a href="{% url 'buying_nft' g.id user.id %}">Купить за nft</a> {% endif %} </p>
+<!--            <p class="price">Цена в nft: {{g.price_nft}} {% if request.user.is_authenticated %} <a href="{% url 'buying_nft' g.id user.id %}">Купить за nft</a> {% endif %} </p>-->
+            </div>
         </li>
     {% endfor %}
 </ul>

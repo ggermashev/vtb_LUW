@@ -86,7 +86,7 @@ ul li.store {
     margin: 10px;
     overflow: hidden;
     width: 500px;
-    height: 250px;
+    height: 300px;
 }
 
 img {
@@ -163,7 +163,6 @@ div.join_guild {
     float: right;
     width: 80px;
     height: 25px;
-    border: 1px solid green;
 }
 
 p.join_guild {
@@ -171,8 +170,25 @@ p.join_guild {
     padding: 0px;
 }
 
-a.join_guild:hover {
+a.join_guild {
     color: green;
+}
+
+a.join_guild:hover {
+    color: greenyellow;
+}
+
+p.price a {
+    color: green;
+}
+
+p.price a:hover {
+    color: greenyellow;
+}
+
+div.price {
+    float: left;
+    clear:both;
 }
 
 
