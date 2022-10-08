@@ -98,3 +98,11 @@ class News(models.Model):
         verbose_name = 'Новости'
         verbose_name_plural = 'Новости'
         ordering = ['time_created']
+
+class Guild(models.Model):
+    guildMaster = models.ForeignKey('Users', related_name='UserGuildMaster', on_delete=models.PROTECT, null=True)
+    guildName = models.CharField(max_length=16)
+    guildMember = models.ForeignKey('Users', related_name='UserGuildMember', on_delete=models.PROTECT, null=True)
+    guildPoints = models.IntegerField()
+    guildRanking = models.CharField(max_length=4)
+

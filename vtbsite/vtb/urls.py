@@ -12,6 +12,7 @@ urlpatterns = [
     path('tasks/', Tasks.as_view(), name='tasks'),
     path('profile/<int:user_id>', profile, name='profile'),
     path('login/', LoginUser.as_view(), name='login'),
-    path('logout/', logout_user, name='logout')
+    path('logout/', logout_user, name='logout'),
+    path('guild/', Guild.as_view(), name='guild')
 ]
 
