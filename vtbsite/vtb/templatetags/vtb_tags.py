@@ -1,4 +1,6 @@
 from django import template
+from django.db.models import Q
+
 from vtb.models import *
 
 register = template.Library()
@@ -38,3 +40,19 @@ def get_user_items(user_id):
 def get_item(item_id):
     item = Goods.objects.get(id=item_id)
     return item
+
+@register.simple_tag()
+def get_tasks_guilds(user_id):
+    myuser = Users.objects.get(user_id=user_id)
+    user_guilds = get_user_guilds(myuser.id)
+    return user_guilds
+
+@register.simple_tag()
+def get_any_tasks():
+    tasks = Tasks.objects.filter(for_guild__isnull=True)
+    return tasks
+
+@register.simple_tag()
+def get_tasks(guild_id):
+    tasks = Tasks.objects.filter(for_guild=guild_id)
+    return tasks

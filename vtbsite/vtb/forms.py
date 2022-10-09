@@ -40,6 +40,7 @@ class AddDonateForm(forms.Form):
     value = forms.FloatField()
 
 class AddTaskForm(forms.ModelForm):
+
     class Meta:
         model = Tasks
-        fields = ['name', 'description', 'reward', 'photo', 'for_guild']
+        fields = ['name', 'description', 'reward', 'for_guild']

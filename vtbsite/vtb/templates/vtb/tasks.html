@@ -1,15 +1,37 @@
 {% extends 'vtb/base.html' %}
+{% load vtb_tags %}
 
 {% block content %}
-<h1>Задания</h1>
 <ul class="store">
-    {% for t in tasks %}
+    <h1>Задания</h1>
+    {% if request.user.is_authenticated %}
+    {% get_tasks_guilds user.id as user_guilds %}
+    {% for u_g in user_guilds %}
+        {% get_tasks u_g.guild_id.id as tasks %}
+
+        {% for t in tasks %}
         <li class="store">
             <h2>{{t.name}}</h2>
+            {% if t.photo %}
             <p><img src="{{t.photo.url}}"></p>
+            {% endif %}
             <p class="description">{{t.description}}</p>
             <p class="price">Награда: {{t.reward}}</p>
         </li>
+        {% endfor %}
     {% endfor %}
+    {% endif %}
+    {% get_any_tasks as tasks %}
+    {% for t in tasks %}
+        <li class="store">
+            <h2>{{t.name}}</h2>
+            {% if t.photo %}
+            <p><img src="{{t.photo.url}}"></p>
+            {% endif %}
+            <p class="description">{{t.description}}</p>
+            <p class="price">Награда: {{t.reward}}</p>
+        </li>
+        {% endfor %}
+
 </ul>
 {% endblock %}

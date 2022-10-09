@@ -25,11 +25,14 @@ class Friends(models.Model):
     user2 = models.ForeignKey('Users',related_name='User2', on_delete=models.PROTECT, null=True)
 
 class Roles(models.Model):
-    role = models.CharField(max_length=64)
+    role = models.CharField(max_length=64, db_index=True)
 
     class Meta:
         verbose_name = 'Роли'
         verbose_name_plural = 'Роли'
+
+    def __str__(self):
+        return self.role
 
 class Goods(models.Model):
     name = models.CharField(max_length=64)
@@ -45,12 +48,18 @@ class Goods(models.Model):
         verbose_name = 'Товары'
         verbose_name_plural = 'Товары'
 
+    def __str__(self):
+        return self.name
+
 class Categories(models.Model):
-    category = models.CharField(max_length=64)
+    category = models.CharField(max_length=64, db_index=True)
 
     class Meta:
         verbose_name = 'Категории товаров'
         verbose_name_plural = 'Категории товаров'
+
+    def __str__(self):
+        return self.category
 
 class Events(models.Model):
     creator = models.ForeignKey('Users', on_delete=models.PROTECT, null=True)
@@ -65,6 +74,9 @@ class Events(models.Model):
         verbose_name = 'События'
         verbose_name_plural = 'События'
 
+    def __str__(self):
+        return self.name
+
 
 class Tasks(models.Model):
     name = models.CharField(max_length=64, null=True)
@@ -76,16 +88,22 @@ class Tasks(models.Model):
     def get_absolute_url(self):
         return reverse('task', kwargs={'task_id': self.id})
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = 'Задания'
         verbose_name_plural = 'Задания'
 
 class TaskFilters(models.Model):
-    filter = models.CharField(max_length=64)
+    filter = models.CharField(max_length=64, db_index=True)
 
     class Meta:
         verbose_name = 'Фильтры заданий'
         verbose_name_plural = 'Фильтры заданий'
+
+    def __str__(self):
+        return self.filter
 
 
 class News(models.Model):
@@ -103,7 +121,7 @@ class News(models.Model):
         ordering = ['time_created']
 
 class Guilds(models.Model):
-    guildName = models.CharField(max_length=16)
+    guildName = models.CharField(max_length=16, db_index=True)
     description =models.CharField(max_length=128, null=True)
     guildPoints = models.IntegerField()
     guildRanking = models.CharField(max_length=4)
@@ -111,6 +129,9 @@ class Guilds(models.Model):
 
     def get_absolute_url(self):
         return reverse('guild', kwargs={'guild_id': self.id})
+
+    def __str__(self):
+        return self.guildName
 
     class Meta:
         verbose_name = 'Гальдии'
