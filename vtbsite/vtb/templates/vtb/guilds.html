@@ -7,7 +7,7 @@
         <li class="store">
             <h2><a href="{{g.get_absolute_url}}">{{g.guildName}}</a></h2>
             <p><img src="{{g.photo.url}}"></p>
-            <p class="description">Описание: {{g.description}}</p>
+            <p class="description">{{g.description}}</p>
             {% if request.user.is_authenticated %}
             <div class="join_guild"><p class="join_guild"><a class="join_guild" href="{% url 'join_guild' g.id user.id %}">Вступить</a></p></div>
             {% endif %}

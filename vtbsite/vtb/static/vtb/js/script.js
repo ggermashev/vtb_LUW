@@ -16,3 +16,8 @@ function ChangeColor(ID, Class){
 document.getElementById(ID).style.backgroundImage = 'linear-gradient(to left, #5f5f5f, 80%, #262626)';
 document.getElementsByClassName(Class)[0].style.backgroundImage = 'clear';
 }
+
+function ChangeColor(ID, Class){
+document.getElementById(ID).style.backgroundImage = 'linear-gradient(to right, #5f5f5f, 50%, #191919)';
+document.getElementsByClassName(Class)[0].style.backgroundImage = 'none';
+}

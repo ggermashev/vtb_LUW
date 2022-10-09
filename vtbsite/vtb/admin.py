@@ -1,8 +1,10 @@
 from django.contrib import admin
 from .models import *
 
+class UsersAdmin(admin.ModelAdmin):
+    list_display = ('firstname', 'name', 'lastname')
 
-admin.site.register(Users)
+admin.site.register(Users, UsersAdmin)
 
 admin.site.register(Roles)
 

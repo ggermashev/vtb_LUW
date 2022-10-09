@@ -1,10 +1,14 @@
 {% extends 'vtb/base.html' %}
 
 {% block content %}
-<h1>Выберите пользователя</h1>
-<ul>
-    {% for u in users %}
-    <li>{{u.firstname}} {{u.name}} {{u.lastname}} <div class="btn"><a href="{% url 'donate' from_id u.id%}">Перевести</a></div> </li>
-    {% endfor %}
+<h1 id="donate_h1">Выберите пользователя</h1>
+<ul class="donate_to_user">
+{% for u in users %}
+<li class="user_block">
+<a class="user_name">{{u.firstname}} {{u.name}} {{u.lastname}}</a>
+
+<div class="btn"><a href="{% url 'donate' from_id u.id%}">Перевести</a></div>
+</li>
+{% endfor %}
 </ul>
 {% endblock %}

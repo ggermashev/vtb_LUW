@@ -4,13 +4,13 @@
 {% block profile %}
 <h1 class="fio">{{myuser.firstname}} {{myuser.name}} {{myuser.lastname}}</h1>
 <div class="left_panel">
-    <ul class="left_menu">
-        <li><h2><a class="profile" href="{% url 'user_guilds' myuser.id %}">Гильдии</a></h2></li>
-        <li>
-            <h2><a class="profile" href="{% url 'wallet' myuser.id %}">Кошелек</a></h2>
-        </li>
-        <li><h2><a class="profile" href="{% url 'inventory' myuser.id %}">Инвентарь</a></h2></li>
-        <li><h2><a class="profile" href="{% url 'create_task' %}">Создать задание</a></h2></li>
-    </ul>
+<ul class="left_menu">
+<li id="guilds_button" class="left_menu_button"><h2><a onmousedown="ChangeColor('guilds_button', 'left_menu_button')" class="profile" href="{% url 'user_guilds' myuser.id %}">Гильдии</a></h2></li>
+<li id="wallet_button" class="left_menu_button">
+<h2><a onmousedown="ChangeColor('wallet_button', 'left_menu_button')" class="profile" href="{% url 'wallet' myuser.id %}">Кошелек</a></h2>
+</li>
+<li id="inventory_button" class="left_menu_button"><h2><a onmousedown="ChangeColor('inventory_button', 'left_menu_button')" class="profile" href="{% url 'inventory' myuser.id %}">Инвентарь</a></h2></li>
+<li id="create_task_button" class="left_menu_button"><h2><a onmousedown="ChangeColor('create_task_button', 'left_menu_button')" class="profile" href="{% url 'create_task' %}">Создать задание</a></h2></li>
+</ul>
 </div>
 {% endblock %}
