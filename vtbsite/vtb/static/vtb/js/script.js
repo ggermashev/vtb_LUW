@@ -11,3 +11,8 @@ function create_wallet() {
     req.send()
     alert(req.responseText)
 }
+
+function ChangeColor(ID, Class){
+document.getElementById(ID).style.backgroundImage = 'linear-gradient(to left, #5f5f5f, 80%, #262626)';
+document.getElementsByClassName(Class)[0].style.backgroundImage = 'clear';
+}
