@@ -71,6 +71,7 @@ class Tasks(models.Model):
     description = models.CharField(max_length=256, null=True)
     reward = models.IntegerField(null=True)
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", null=True)
+    for_guild = models.ForeignKey('Guilds', on_delete=models.CASCADE, null=True)
 
     def get_absolute_url(self):
         return reverse('task', kwargs={'task_id': self.id})

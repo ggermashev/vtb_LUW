@@ -22,6 +22,8 @@ urlpatterns = [
     path('buying_coins/<int:item_id>/<int:user_id>', buying_coins, name='buying_coins'),
     path('buying_nft/<int:item_id>/<int:user_id>', buying_nft, name='buying_nft'),
     path('user_guilds/<int:user_id>', user_guilds, name='user_guilds'),
-    path ('join_guild/<int:guild_id>/<int:user_id>', join_guild, name='join_guild')
+    path('join_guild/<int:guild_id>/<int:user_id>', join_guild, name='join_guild'),
+    path('leave_guild/<int:guild_id>/<int:user_id>', leave_guild, name='leave_guild'),
+    path('create_taks/', CreateTask.as_view(), name='create_task'),
 ]
 

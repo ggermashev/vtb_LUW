@@ -6,20 +6,11 @@
 <div class="left_panel">
     <ul class="left_menu">
         <li><h2><a class="profile" href="{% url 'user_guilds' myuser.id %}">Гильдии</a></h2></li>
-<!--        <li>-->
-<!--        <ul class="store">-->
-<!--            {% get_guilds myuser.id as guilds %}-->
-<!--            {% for g in guilds %}-->
-<!--                {% get_guild g.id as g %}-->
-<!--                <li class="store"><a href="{{ g.get_absolute_url }}">{{g.guildName}}</a></li>-->
-<!--            {% endfor %}-->
-<!--        </ul>-->
-<!--        </li>-->
         <li>
             <h2><a class="profile" href="{% url 'wallet' myuser.id %}">Кошелек</a></h2>
         </li>
         <li><h2><a class="profile" href="{% url 'inventory' myuser.id %}">Инвентарь</a></h2></li>
-        <li><h2><a class="profile" href="#">Создать задание</a></h2></li>
+        <li><h2><a class="profile" href="{% url 'create_task' %}">Создать задание</a></h2></li>
     </ul>
 </div>
 {% endblock %}

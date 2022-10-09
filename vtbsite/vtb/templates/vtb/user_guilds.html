@@ -2,9 +2,17 @@
 {% load vtb_tags %}
 
 {% block content %}
+<ul class="store">
     {% get_user_guilds myuser.id as user_guilds %}
     {% for u_g in user_guilds %}
-        {% get_guild u_g.guild_id as g %}
-        <li class="store"><a href="{{ g.get_absolute_url }}">{{g.guildName}}</a></li>
+        {% get_guild u_g.guild_id.id as g %}
+        <li class="store">
+            <h2><a href="{{ g.get_absolute_url }}">{{g.guildName}}</a></h2>
+            <p><img src=" {{g.photo.url}} "></p>
+            <p class="description">{{g.description}}</p>
+            <p class="exit"><a href="{% url 'leave_guild' g.id user.id %}">Покинуть гильдию</a></p>
+        </li>
     {% endfor %}
+</ul>
+
 {% endblock %}

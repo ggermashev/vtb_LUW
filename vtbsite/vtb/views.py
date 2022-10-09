@@ -16,20 +16,7 @@ from vtb.models import *
 import sqlite3
 import requests
 
-class RegisterUserForm(UserCreationForm):
-    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-    password2 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
-
-    class Meta:
-        model = User
-        fields = {'username', 'password1', 'password2'}
-        widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-input'}),
-            'password1': forms.PasswordInput(attrs={'class': 'form-input'}),
-            'password2': forms.PasswordInput(attrs={'class': 'form-input'}),
-        }
 
 class Registration(CreateView):
     form_class = RegisterUserForm
@@ -50,6 +37,19 @@ class Registration(CreateView):
         return context
 
 
+class CreateTask(CreateView):
+    form_class = AddTaskForm
+    template_name = 'vtb/create_task.html'
+    success_url ='/tasks'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        return context
 
 class LoginUser(LoginView):
     form_class = AuthenticationForm
@@ -67,15 +67,6 @@ def logout_user(request):
     logout(request)
     return redirect('main')
 
-class FillInformationForm(forms.ModelForm):
-    class Meta:
-        model = Users
-        fields = ['firstname', 'name', 'lastname']
-        widgets = {
-            'firstname': forms.TextInput(attrs={'class': 'form-input'}),
-            'name': forms.TextInput(attrs={'class': 'form-input'}),
-            'lastname': forms.TextInput(attrs={'class': 'form-input'}),
-        }
 
 def fill_information(request, _username):
     if request.method == 'POST':
@@ -159,23 +150,31 @@ def guild(request, guild_id):
 
 def join_guild(request, guild_id, user_id):
     myuser = Users.objects.get(user_id=user_id)
-    conn = sqlite3.connect('dv.sqlite3')
+    conn = sqlite3.connect('db.sqlite3')
     cur = conn.cursor()
-    cur
+    if not cur.execute(f"SELECT * from vtb_guildusers WHERE guild_id_id='{guild_id}' AND guild_user_id_id='{myuser.id}'").fetchone():
+        cur.execute(f"INSERT INTO vtb_guildusers (guild_id_id, guild_user_id_id) VALUES ('{guild_id}', '{myuser.id}')")
+        conn.commit()
+    cur.close()
+    conn.close()
+    return redirect('guilds')
+
+def leave_guild(request, guild_id, user_id):
+    myuser = Users.objects.get(user_id=user_id)
+    conn = sqlite3.connect('db.sqlite3')
+    cur = conn.cursor()
+    cur.execute(f"DELETE FROM vtb_guildusers WHERE guild_id_id='{guild_id}' AND guild_user_id_id='{myuser.id}'")
+    conn.commit()
+    cur.close()
+    conn.close()
+    return redirect('user_guilds', myuser.id)
 
 def user_guilds(request, user_id):
     myuser = Users.objects.get(id=user_id)
-
     return render(request, 'vtb/user_guilds.html', {'menu': menu, 'myuser': myuser})
 
 def profile(request, user_id):
     myuser = Users.objects.get(user_id=user_id)
-
-    # r = requests.get(f"https://hackathon.lsp.team/hk/v1/wallets/{myuser.publicKey}/balance").json()
-    # maticAmount = r['maticAmount']
-    # coinsAmount = r['coinsAmount']
-    # r = requests.get(f"https://hackathon.lsp.team/hk/v1/wallets/{myuser.publicKey}/nft/balance").json()
-
     return render(request, 'vtb/profile.html', {'menu': menu, 'myuser': myuser})
 
 def wallet(request, user_id):

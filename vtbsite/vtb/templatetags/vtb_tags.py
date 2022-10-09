@@ -21,6 +21,7 @@ def get_user(guild_user_id):
 @register.simple_tag()
 def get_guild(guild_id):
     guild = Guilds.objects.get(id=guild_id)
+    print(guild)
     return guild
 
 @register.simple_tag()
